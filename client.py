@@ -1,5 +1,5 @@
 from keyboards.client_kb import begin_kb, modes_kb, help_kb
-from msg import start_msg, help_modes_text, help_points_text, help_stat_text
+from msg import start_msg, help_modes_msg, help_points_msg, help_stat_msg
 from config import API_TOKEN
 from aiogram.dispatcher.filters import Text
 import logging
@@ -35,17 +35,17 @@ async def help_func(message: types.Message):
 
 @dp.message_handler(Text(equals="🎮 Режимы игры"))
 async def help_game_modes(message: types.Message):
-    await message.answer(help_modes_text)
+    await message.answer(help_modes_msg)
 
 
 @dp.message_handler(Text(equals="⭐ Игровые очки"))
 async def help_points(message: types.Message):
-    await message.answer(help_points_text)
+    await message.answer(help_points_msg)
 
 
 @dp.message_handler(Text(equals="📊 Статистика"))
 async def help_stat(message: types.Message):
-    await message.answer(help_stat_text)
+    await message.answer(help_stat_msg)
 
 
 if __name__ == '__main__':
