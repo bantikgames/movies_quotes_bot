@@ -1,5 +1,5 @@
 from keyboards.client_kb import begin_kb, modes_kb, help_kb
-from msg import start_msg, help_modes_msg, help_points_msg, help_stat_msg
+from msg import start_msg, help_modes_msg, help_points_msg, help_stat_msg, back_button_msg
 from config import API_TOKEN
 from aiogram.dispatcher.filters import Text
 import logging
@@ -46,6 +46,11 @@ async def help_points(message: types.Message):
 @dp.message_handler(Text(equals="📊 Статистика"))
 async def help_stat(message: types.Message):
     await message.answer(help_stat_msg)
+
+
+@dp.message_handler(Text(equals="⬅ Назад"))
+async def back_button(message: types.Message):
+    await message.answer(back_button_msg, reply_markup=begin_kb)
 
 
 if __name__ == '__main__':
