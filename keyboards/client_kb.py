@@ -1,4 +1,6 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.utils.callback_data import CallbackData
+from quiz import *
 
 # Универсальная кнопка назад
 back_button = KeyboardButton("⬅ Назад")
@@ -12,16 +14,8 @@ begin_kb = ReplyKeyboardMarkup(resize_keyboard=True)
 
 begin_kb.add(stat_button).add(start_game_button).add(help_button)
 
-# Клавиатура с режимами игры
-classic_mode_button = KeyboardButton("🕹️ Классический")
-time_mode_button = KeyboardButton("⌛ На время")
-
-modes_kb = ReplyKeyboardMarkup(resize_keyboard=True)
-
-modes_kb.insert(classic_mode_button).insert(time_mode_button).add(back_button)
-
 # Клавиатура для раздела Помощи
-help_modes_button = KeyboardButton("🎮 Режимы игры")
+help_modes_button = KeyboardButton("🎮 Как играть?")
 help_points_button = KeyboardButton("⭐ Игровые очки")
 help_stat_button = KeyboardButton("📊 Статистика")
 
