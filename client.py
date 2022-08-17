@@ -1,3 +1,5 @@
+import random
+
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from quiz import *
 from keyboards.client_kb import begin_kb, help_kb
@@ -9,7 +11,6 @@ from aiogram import Bot, Dispatcher, executor, types
 from models import *
 import logging
 import json
-import inspect
 
 # Конфигурация логгирования
 logging.basicConfig(level=logging.INFO)
@@ -53,26 +54,9 @@ async def my_stat(message: types.Message):
 
 @dp.message_handler(Text(equals="🎮 Начать игру"))
 async def start_quiz(message: types.Message):
-    for num_of_quest in range(0, 11):
-        random_quote = Quote.select().order_by(fn.Random()).limit(4)
-        question_data["Questions"].append(
-            {
-                "Number": num_of_quest,
-                "Question": [{
-                    "Quote": [obj.film_quotes for obj in random_quote],
-                    "Film": [obj.film_title for obj in random_quote],
-                }]
-
-            }
-        )
-    with open("question.json", "w+") as json_file:
-        json.dump(question_data, json_file, indent=2)
-    with open("question.json", "r") as jsonfile:
-        data = json.load(jsonfile)
-        quote = data["Questions"][INDEX]["Question"][0]["Quote"][0]
-    # await clear_question_json()
-    # await generate_question_json()
-    await message.answer(quote, reply_markup=create_quiz_keyboard(INDEX))
+    await clear_question_json()
+    await generate_question_json()
+    await message.answer(get_question(INDEX)[0], reply_markup=create_quiz_keyboard(INDEX))
 
 
 @dp.callback_query_handler()
@@ -90,8 +74,6 @@ async def get_answer(call_back: CallbackQuery):
                                        reply_markup=create_quiz_keyboard(INDEX))
     else:
         INDEX = 0
-        with open("question.json", "w+") as json_file:
-            json_file.truncate()
         await call_back.message.answer("Раунд закончился. Вы заработали {} ⭐".format(POINTS))
         await call_back.message.answer("Можете сыграть еще раз или проверить свою статистику",
                                        reply_markup=begin_kb)

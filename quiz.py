@@ -1,8 +1,5 @@
 from models import *
 import json
-import random
-import asyncio
-from pprint import pprint
 
 question_data = {"Questions": []}
 
