@@ -1,5 +1,9 @@
 # Config files
 config.py
+# BD
+*.db
+# Questions
+question.json
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
