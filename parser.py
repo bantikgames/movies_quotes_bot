@@ -2,9 +2,11 @@ from bs4 import BeautifulSoup
 from models import *
 import requests
 
+# Задаем URLы для сбора данных и список классов для обработки
 urls = ["https://citaty.info/movie", "https://citaty.info/series"]
 classes = ["taxonomy-term vocabulary-vocabulary-4", "taxonomy-term vocabulary-vocabulary-25"]
 
+# Парсим содержимое страниц и сохраняем это все в БД с цитатами
 for url in urls:
     for html_class in classes:
         r = requests.get(url)

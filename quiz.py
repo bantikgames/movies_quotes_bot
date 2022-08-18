@@ -1,9 +1,11 @@
 from models import *
 import json
 
+# Шаблон для создания JSON-файла
 question_data = {"Questions": []}
 
 
+# Генерируем 10 вопросов с цитатами и сохраняем их в JSON
 async def generate_question_json():
     for num_of_quest in range(0, 11):
         random_quote = Quote.select().order_by(fn.Random()).limit(4)
@@ -22,12 +24,14 @@ async def generate_question_json():
     print("GENERATE COMPLETE")
 
 
+# Очищаем JSON-файл с цитатами
 async def clear_question_json():
     with open("question.json", "w+") as json_file:
         json_file.truncate()
     print("CLEAR COMPLETE")
 
 
+# Формируем один вопрос с цитатаой и 4-мя вариантами ответа
 def get_question(question_number):
     with open("question.json", "r") as jsonfile:
         data = json.load(jsonfile)
